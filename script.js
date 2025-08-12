@@ -20,6 +20,10 @@ class TicTacToe {
         this.lossesElement = document.getElementById('losses');
         this.drawsElement = document.getElementById('draws');
         this.resetStatsButton = document.getElementById('reset-stats');
+        this.timerElement = document.getElementById('timer');
+
+        this.timerInterval = null;
+        this.seconds = 0;
         
         this.loadStats();
         this.initializeGame();
@@ -36,6 +40,7 @@ class TicTacToe {
         
         this.updateStatus();
         this.updateStatsDisplay();
+        this.startTimer();
     }
     
     handleCellClick(event) {
@@ -80,12 +85,14 @@ class TicTacToe {
             }
             this.saveStats();
             this.updateStatsDisplay();
+            this.stopTimer();
         } else if (this.checkDraw()) {
             this.gameActive = false;
             this.statusElement.textContent = "It's a draw!";
             this.stats.draws++;
             this.saveStats();
             this.updateStatsDisplay();
+            this.stopTimer();
         }
     }
     
@@ -282,6 +289,28 @@ class TicTacToe {
         });
         
         this.updateStatus();
+        this.resetTimer();
+        this.startTimer();
+    }
+
+    // Timer methods
+    startTimer() {
+        if (this.timerInterval) return;
+        this.timerInterval = setInterval(() => {
+            this.seconds++;
+            this.timerElement.textContent = `${this.seconds}s`;
+        }, 1000);
+    }
+
+    stopTimer() {
+        clearInterval(this.timerInterval);
+        this.timerInterval = null;
+    }
+
+    resetTimer() {
+        this.stopTimer();
+        this.seconds = 0;
+        this.timerElement.textContent = '0s';
     }
     
     // Statistics methods
