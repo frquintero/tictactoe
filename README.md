@@ -6,6 +6,7 @@ A responsive Tic Tac Toe game with two difficulty modes:
 
 ## Features
 - Two difficulty levels
+- Match timer to track the duration of each game
 - Win/loss/draw statistics tracking with local storage
 - Responsive design that works on mobile and desktop
 - Clean, modern UI with smooth animations
